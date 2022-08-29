@@ -12,7 +12,10 @@
   "activationEvents": [
     "onCommand:epcode.build",
     "onCommand:epcode.check",
-    "onCommand:epcode.lint"
+    "onCommand:epcode.lint",
+    "onCommand:epcode.stack.status",
+    "onCommand:epcode.stack.up",
+    "onCommand:epcode.stack.down"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -28,7 +31,19 @@
       {
         "command": "epcode.lint",
         "title": "Elastic Package: lint"
-      }      
+      },
+      {
+        "command": "epcode.stack.status",
+        "title": "Elastic Package: Stack status"
+      },
+      {
+        "command": "epcode.stack.up",
+        "title": "Elastic Package: Stack up"
+      },
+      {
+        "command": "epcode.stack.down",
+        "title": "Elastic Package: Stack down"
+      }
     ]
   },
   "scripts": {
