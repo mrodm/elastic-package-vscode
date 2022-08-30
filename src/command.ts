@@ -1,15 +1,20 @@
+import * as vscode from "vscode";
 import * as cp from "child_process";
 
+interface CommandOutput {
+    stdout: string;
+    stderr: string;
+}
 export const execShell = (cmd: string, cwd: string) =>
-    new Promise<string>((resolve, reject) => {
+    new Promise<CommandOutput>((resolve, reject) => {
         cp.exec(cmd, { cwd }, (err, stdout, stderr) => {
             if (err) {
-                return resolve(cmd + ' error!: ' + err);
+                return resolve({stdout: `${cmd}  failed`, stderr});
                 //or,  reject(err);
             }
             console.log(`stdout: ${stdout}`);
             console.log(`stderr: ${stderr}`);
-            return resolve(stderr);
+            return resolve({stdout, stderr});
         });
     });
 
@@ -23,4 +28,23 @@ export function elasticPackageCommand(parameters: string, verbose: boolean): str
     }
     return `${elasticPackageCmd} ${parameters}`;
 
+}
+
+export function getCurrentWorkingDirectory(): string {
+	let message: string;
+	let cwd: string;
+	if (vscode.workspace.workspaceFolders !== undefined) {
+		let path = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+		message = `epcode: working directory: ${path}`;
+
+		vscode.window.showInformationMessage(message);
+		return path;
+	}
+
+	message = "epcode: Working folder not found, open a folder an try again";
+
+	vscode.window.showErrorMessage(message);
+
+	return message;
 }

@@ -56,7 +56,17 @@
         "title": "Service up",
         "category": "Elastic Package"
       }
-    ]
+    ],
+    "configuration": {
+      "title": "Elastic Package",
+      "properties": {
+        "epcode.defaultProfile": {
+          "type": "string",
+          "default": "default",
+          "markdownDescription": "Default profile to be used in `elastic-package stack` commands"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

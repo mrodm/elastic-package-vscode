@@ -6,12 +6,13 @@ import semverRegex = require('semver-regex');
 import { execShell } from './command';
 import { elasticPackageCommand } from './command';
 import { launchCommandInTerminal } from './terminal';
+import { getCurrentProfiles } from './profiles';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
 
-	const cwd: string = getCurrentWorkingDirectory();
+	// const cwd: string = getCurrentWorkingDirectory();
 	const termName: string = "elastic package plugin";
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
@@ -62,6 +63,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	}));
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.up', async () => {
+		const configuration = vscode.workspace.getConfiguration('epcode');
+		const defaultProfile = configuration['defaultProfile'];
 
 		const elasticStackVersion = await vscode.window.showInputBox({
 			value: 'default',
@@ -86,11 +89,21 @@ export function activate(context: vscode.ExtensionContext) {
 				canPickMany: true,
 			}
 		);
-		if (elasticStackVersion === undefined) {
-			vscode.window.showErrorMessage("Not a valid version");
+
+		const profiles = await getCurrentProfiles();
+		console.log(`Available profiles: ${profiles}`);
+		const profile = await vscode.window.showQuickPick(
+			profiles,
+			{
+				canPickMany: false,
+				placeHolder: `Profile to use in elastic-package commands (default ${defaultProfile})`,
+			}
+		);
+		if ([elasticStackVersion, services, profile].some(x => x === undefined)) {
+			// Pressed ESC
 			return;
 		}
-		let command = `stack up -d`;
+		let command = `stack up -d --profile ${profile}`;
 		if (elasticStackVersion !== "default") {
 			command = `${command} --version ${elasticStackVersion}`;
 		}
@@ -98,9 +111,10 @@ export function activate(context: vscode.ExtensionContext) {
 			command = `${command} --services ${services.join()}`;
 		}
 		console.log(`Value of services: ${JSON.stringify(services)}`);
-		console.log(`Value of elastic stack: ${elasticStackVersion}`);
+		console.log(`Value of elastic stack version: ${elasticStackVersion}`);
+		console.log(`Value of profile: ${profile}`);
 		command = elasticPackageCommand(`${command}`, true);
-		vscode.window.showInformationMessage('Hello World from epcode! Running Stack up...');
+		vscode.window.showInformationMessage('Elastic-Package: Running Stack up...');
 		launchCommandInTerminal(command, termName);
 		// const output: string = await execShell(`${elasticPackageCmd} stack up -d --version ${elasticVersion}`, cwd);
 		// vscode.window.showInformationMessage(output);
@@ -133,22 +147,3 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() { }
-
-function getCurrentWorkingDirectory(): string {
-	let message: string;
-	let cwd: string;
-	if (vscode.workspace.workspaceFolders !== undefined) {
-		let path = vscode.workspace.workspaceFolders[0].uri.fsPath;
-
-		message = `epcode: working directory: ${path}`;
-
-		vscode.window.showInformationMessage(message);
-		return path;
-	}
-
-	message = "epcode: Working folder not found, open a folder an try again";
-
-	vscode.window.showErrorMessage(message);
-
-	return message;
-}
