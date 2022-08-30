@@ -78,6 +78,14 @@ export function activate(context: vscode.ExtensionContext) {
 				return "Check version";
 			},
 		});
+		const serviceList: ReadonlyArray<string> = ['fleet-server', 'package-registry', 'elastic-agent', 'elasticsearch', 'kibana'];
+		const services = await vscode.window.showQuickPick(
+			serviceList,
+			{
+				placeHolder: 'Select the services to start/restart in the stack.',
+				canPickMany: true,
+			}
+		);
 		if (elasticStackVersion === undefined) {
 			vscode.window.showErrorMessage("Not a valid version");
 			return;
@@ -86,6 +94,11 @@ export function activate(context: vscode.ExtensionContext) {
 		if (elasticStackVersion !== "default") {
 			command = `${command} --version ${elasticStackVersion}`;
 		}
+		if (services !== undefined && services.length > 0) {
+			command = `${command} --services ${services.join()}`;
+		}
+		console.log(`Value of services: ${JSON.stringify(services)}`);
+		console.log(`Value of elastic stack: ${elasticStackVersion}`);
 		command = elasticPackageCommand(`${command}`, true);
 		vscode.window.showInformationMessage('Hello World from epcode! Running Stack up...');
 		launchCommandInTerminal(command, termName);
