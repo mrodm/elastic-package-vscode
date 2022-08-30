@@ -22,27 +22,33 @@
     "commands": [
       {
         "command": "epcode.build",
-        "title": "Elastic Package: Build"
+        "title": "Build",
+        "category": "Elastic Package"
       },
       {
         "command": "epcode.check",
-        "title": "Elastic Package: check"
+        "title": "check",
+        "category": "Elastic Package"
       },
       {
         "command": "epcode.lint",
-        "title": "Elastic Package: lint"
+        "title": "lint",
+        "category": "Elastic Package"
       },
       {
         "command": "epcode.stack.status",
-        "title": "Elastic Package: Stack status"
+        "title": "Stack status",
+        "category": "Elastic Package"
       },
       {
         "command": "epcode.stack.up",
-        "title": "Elastic Package: Stack up"
+        "title": "Stack up",
+        "category": "Elastic Package"
       },
       {
         "command": "epcode.stack.down",
-        "title": "Elastic Package: Stack down"
+        "title": "Stack down",
+        "category": "Elastic Package"
       }
     ]
   },
