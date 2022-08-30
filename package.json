@@ -15,7 +15,8 @@
     "onCommand:epcode.lint",
     "onCommand:epcode.stack.status",
     "onCommand:epcode.stack.up",
-    "onCommand:epcode.stack.down"
+    "onCommand:epcode.stack.down",
+    "onCommand:epcode.service.up"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -48,6 +49,11 @@
       {
         "command": "epcode.stack.down",
         "title": "Stack down",
+        "category": "Elastic Package"
+      },
+      {
+        "command": "epcode.service.up",
+        "title": "Service up",
         "category": "Elastic Package"
       }
     ]

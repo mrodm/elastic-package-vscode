@@ -103,6 +103,19 @@ export function activate(context: vscode.ExtensionContext) {
 		// const output: string = await execShell(`${elasticPackageCmd} stack status`, cwd);
 		// vscode.window.showInformationMessage(output);
 	}));
+
+	// Service Management
+	context.subscriptions.push(vscode.commands.registerCommand('epcode.service.up', async () => {
+		let command = elasticPackageCommand('service up', true);
+
+		vscode.window.showInformationMessage('Running service up...');
+		launchCommandInTerminal(command, termName);
+		// The code you place here will be executed every time your command is executed
+		// Display a message box to the user
+		// const output: string = await execShell(`${elasticPackageCmd} stack status`, cwd);
+		// vscode.window.showInformationMessage(output);
+
+	}));
 }
 
 // this method is called when your extension is deactivated
