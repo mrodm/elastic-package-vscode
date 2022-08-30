@@ -13,6 +13,9 @@
     "onCommand:epcode.build",
     "onCommand:epcode.check",
     "onCommand:epcode.lint",
+    "onCommand:epcode.profiles.list",
+    "onCommand:epcode.profiles.create",
+    "onCommand:epcode.profiles.delete",
     "onCommand:epcode.stack.status",
     "onCommand:epcode.stack.up",
     "onCommand:epcode.stack.down",
@@ -34,6 +37,21 @@
       {
         "command": "epcode.lint",
         "title": "lint",
+        "category": "Elastic Package"
+      },
+      {
+        "command": "epcode.profiles.list",
+        "title": "Profiles list",
+        "category": "Elastic Package"
+      },
+      {
+        "command": "epcode.profiles.create",
+        "title": "Profiles create",
+        "category": "Elastic Package"
+      },
+      {
+        "command": "epcode.profiles.delete",
+        "title": "Profiles delete",
         "category": "Elastic Package"
       },
       {

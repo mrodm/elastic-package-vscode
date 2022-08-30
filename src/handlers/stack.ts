@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import semverRegex = require('semver-regex');
 
-import { getCurrentProfiles } from '../profiles';
+import { getCurrentProfiles, getDefaultProfile } from '../profiles';
 import { elasticPackageCommand } from "../command";
 import { launchCommandInDefaultTerminal } from "../terminal";
 
@@ -22,8 +22,7 @@ export async function stackStatusHandler() {
 }
 
 export async function stackUpHandler() {
-    const configuration = vscode.workspace.getConfiguration('epcode');
-    const defaultProfile = configuration['defaultProfile'];
+    const defaultProfile = getDefaultProfile();
 
     const elasticStackVersion = await vscode.window.showInputBox({
         value: 'default',

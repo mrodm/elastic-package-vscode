@@ -1,3 +1,4 @@
+import * as vscode from 'vscode';
 import { elasticPackageCommand, execShell, getCurrentWorkingDirectory } from "./command";
 
 interface Profile {
@@ -10,13 +11,16 @@ interface Profile {
 
 export async function getCurrentProfiles(): Promise<ReadonlyArray<string>> {
     const command = elasticPackageCommand("profiles list --format json", false);
-    console.log(`Executing ${command}`);
+    console.debug(`Executing ${command}`);
     const output = await execShell(command, ".");
-    console.log(`Output: ${output}`);
+    console.debug(`Output: ${output}`);
     const profiles: ReadonlyArray<Profile> = JSON.parse(output.stdout);
-    console.log(`Profiles: ${JSON.stringify(profiles)}`);
-    const profileNames = profiles.map(x => x.name);
+    console.debug(`Profiles: ${JSON.stringify(profiles)}`);
 
+    return profiles.map(x => x.name);
+}
 
-    return profileNames;
+export function getDefaultProfile() {
+    const configuration = vscode.workspace.getConfiguration('epcode');
+    return configuration['defaultProfile'];
 }

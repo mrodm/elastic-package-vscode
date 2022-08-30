@@ -2,11 +2,10 @@
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
 
-import { elasticPackageCommand } from './command';
-import { launchCommandInDefaultTerminal } from './terminal';
 import { stackDownHandler, stackStatusHandler, stackUpHandler } from './handlers/stack';
 import { serviceUpHandler } from './handlers/service';
 import { defaultHandler } from './handlers/default';
+import { profileCreateHandler, profileDeleteHandler, profileListHandler } from './handlers/profile';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -32,6 +31,11 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Service Management
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.service.up', serviceUpHandler));
+
+	// Profiles Management
+	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.list', profileListHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.create', profileCreateHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.delete', profileDeleteHandler));
 }
 
 // this method is called when your extension is deactivated
