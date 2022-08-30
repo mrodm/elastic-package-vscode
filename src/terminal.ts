@@ -1,6 +1,15 @@
 import { window, Terminal } from 'vscode';
 
+const defaultTerminalName = 'Elastic-package plugin';
+
+export function launchCommandInDefaultTerminal(command: string) {
+    return launchCommandInTerminal(command, defaultTerminalName);
+}
+
 export function launchCommandInTerminal(command: string, termName: string) {
+    if (termName === undefined) {
+        termName = defaultTerminalName;
+    }
     let term = getTerminal(termName);
     term.show(true);
     window.onDidCloseTerminal(event => {
@@ -11,7 +20,6 @@ export function launchCommandInTerminal(command: string, termName: string) {
     });
     term.sendText(command);
 }
-
 
 function getTerminal(termName: string): Terminal {
     let terminal = window.terminals.find(x => x.name === termName);
