@@ -1,10 +1,11 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
-import { execShell } from './command';
-import { launchCommandInTerminal } from './terminal';
+import semverRegex = require('semver-regex');
 
-const elasticPackageCmd = "elastic-package -v";
+import { execShell } from './command';
+import { elasticPackageCommand } from './command';
+import { launchCommandInTerminal } from './terminal';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -22,7 +23,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The commandId parameter must match the command field in package.json
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.lint', async () => {
 		vscode.window.showInformationMessage('Running Lint...');
-		let command = `${elasticPackageCmd} lint`;
+		let command = elasticPackageCommand('lint', true);
 
 		launchCommandInTerminal(command, termName);
 		// const output: string = await execShell(`${elasticPackageCmd} lint`, cwd);
@@ -31,7 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.check', async () => {
 		vscode.window.showInformationMessage('Running Check...');
-		let command = `${elasticPackageCmd} check`;
+		let command = elasticPackageCommand('check', true);
 
 		launchCommandInTerminal(command, termName);
 		// vscode.window.showInformationMessage('Hello World from epcode! Running Check...');
@@ -40,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.build', async () => {
-		let command = `${elasticPackageCmd} check`;
+		let command = elasticPackageCommand('build', true);
 
 		launchCommandInTerminal(command, termName);
 		// const output: string = await execShell(`${elasticPackageCmd} build`, cwd);
@@ -50,7 +51,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Stack Management 
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.status', async () => {
-		let command = `${elasticPackageCmd} stack status`;
+		let command = elasticPackageCommand('stack status', false);
 
 		vscode.window.showInformationMessage('Running Stack status...');
 		launchCommandInTerminal(command, termName);
@@ -70,15 +71,22 @@ export function activate(context: vscode.ExtensionContext) {
 					return undefined;
 				}
 
+				if (semverRegex().test(text)) {
+					return undefined;
+				}
+
 				return "Check version";
 			},
 		});
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		let command = `${elasticPackageCmd} stack up -d`;
+		if (elasticStackVersion === undefined) {
+			vscode.window.showErrorMessage("Not a valid version");
+			return;
+		}
+		let command = `stack up -d`;
 		if (elasticStackVersion !== "default") {
 			command = `${command} --version ${elasticStackVersion}`;
 		}
+		command = elasticPackageCommand(`${command}`, true);
 		vscode.window.showInformationMessage('Hello World from epcode! Running Stack up...');
 		launchCommandInTerminal(command, termName);
 		// const output: string = await execShell(`${elasticPackageCmd} stack up -d --version ${elasticVersion}`, cwd);
@@ -86,7 +94,7 @@ export function activate(context: vscode.ExtensionContext) {
 	}));
 
 	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.down', async () => {
-		let command = `${elasticPackageCmd} stack down`;
+		let command = elasticPackageCommand('stack down', true);
 
 		vscode.window.showInformationMessage('Running Stack down...');
 		launchCommandInTerminal(command, termName);
