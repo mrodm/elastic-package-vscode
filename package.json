@@ -84,7 +84,90 @@
           "markdownDescription": "Default profile to be used in `elastic-package stack` commands"
         }
       }
-    }
+    },
+    "jsonValidation": [
+      {
+        "fileMatch": [
+          "data_stream/*/_dev/test/pipeline/test-*.json",
+          "!data_stream/*/_dev/test/pipeline/test-*.log-expected.json",
+          "!data_stream/*/_dev/test/pipeline/test-*.json-expected.json"
+        ],
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/event.spec.yml"
+      },
+      {
+        "fileMatch": [
+          "data_stream/*/_dev/test/pipeline/test-*.log-expected.json",
+          "data_stream/*/_dev/test/pipeline/test-*.json-expected.json"
+        ],
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/expected.spec.yml"
+      }
+    ],
+    "yamlValidation": [
+      {
+        "fileMatch": "/changelog.yml",
+        "url": "./resources/schemas/integration/changelog.spec.yml"
+      },
+      {
+        "fileMatch": "/manifest.yml",
+        "url": "./resources/schemas/integration/manifest.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/manifest.yml",
+        "url": "./resources/schemas/integration/data_stream/manifest.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/fields/*.yml",
+        "url": "./resources/schemas/integration/data_stream/fields/fields.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/pipeline/test-common-config.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/common_config.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/pipeline/test-*.json-config.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/config_json.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/pipeline/test-*.log-config.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/config_raw.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/static/test-*-config.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/static/config.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/system/test-*-config.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/system/config.spec.yml"
+      },
+      {
+        "fileMatch": "data_stream/*/_dev/test/skip.yml",
+        "url": "./resources/schemas/integration/data_stream/_dev/test/skip.spec.yml"
+      },
+      {
+        "fileMatch": "_dev/build/build.yml",
+        "url": "./resources/schemas/integration/_dev/build/build.spec.yml"
+      },
+      {
+        "fileMatch": "_dev/deploy/agent/custom-agent.yml",
+        "url": "./resources/schemas/integration/_dev/deploy/agent/custom-agent.spec.yml"
+      },
+      {
+        "fileMatch": "_dev/deploy/tf/env.yml",
+        "url": "./resources/schemas/integration/_dev/deploy/tf/env.spec.yml"
+      },
+      {
+        "fileMatch": "_dev/deploy/variants.yml",
+        "url": "./resources/schemas/integration/_dev/deploy/variants.spec.yml"
+      },
+      {
+        "fileMatch": "elasticsearch/transform/manifest.yml",
+        "url": "./resources/schemas/integration/elasticsearch/transform/manifest.spec.yml"
+      },
+      {
+        "fileMatch": "elasticsearch/transform/transform.yml",
+        "url": "./resources/schemas/integration/elasticsearch/transform/transform.spec.yml"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

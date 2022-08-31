@@ -1,0 +1,6 @@
+# Everything under here follows JSON schema (https://json-schema.org/), written as YAML for readability
+type: object
+additionalProperties: true
+properties:
+  skip:
+    $ref: "./../skip.spec.yml#/definitions/skip"

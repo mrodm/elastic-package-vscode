@@ -1,0 +1,14 @@
+# Everything under here follows JSON schema (https://json-schema.org/), written as YAML for readability
+type: object
+additionalProperties: false
+properties:
+  variants:
+    description: Variant names and their configurations
+    type: object
+    additionalProperties: true
+  default:
+    description: Default variant to use
+    type: string
+required:
+- variants
+- default
