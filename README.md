@@ -1,71 +1,68 @@
 # elastic-package-code README
 
-This is the README for your extension "elastic-package-code". After writing up a brief description, we recommend including the following sections.
+This `elastic-package-code` extension adds into Visual Studio Code features from [`elastic-package`](https://github.com/elastic/elastic-package) command to help develop and debug Elastic Packages.
+
+Among those features, json and YAML validation as well as the option to trigger commands from the Command Pallete (e.g. building a package).
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+This extension adds the following actions into the Command Pallete:
+- "Elastic Package: Lint": Run `elastic-package lint`
+- "Elastic Package: Check": Run `elatic-package check`
+- "Elastic Package: Build": Run `elastic-package build`
+- "Elastic Package: Stack status": Run `elastic-package stack status`
+- "Elastic Package: Stack up": Run `elastic-package stack up -d` 
+    - When executing this command, several inputs are shown to gather more information:
+        - version to be used to run the Elastic stack: parameter `--version`
+        - services to start: parameter `--services`. By default, all services are started.
+        - profile to use: paramtger `--profile`.
+- "Elastic Package: Stack down": Run `elastic-package stack down`
+- "Elastic Package: Service up": Run `elastic-package service up`
+    - *Requirement*: The VS Code workspace should be a folder with the package definition.
+    - **NOTE**: As this process is kept in the foreground, this command/action
+     needs to be stopped by the developer in the terminal opened with `Ctrl+C`.
+- "Elastic Package: Profiles list": Run `elastic-package profiles list`
+- "Elastic Package: Profiles create": Run `elastic-package profiles create`
+    - It allows to create a new profile based from an existing one: parameter `--from`.
+- "Elastic Package: Profiles delete": Run `elastic-package profiles delete`
 
-For example if there is an image subfolder under your extension project workspace:
+![Command Pallete Menu](images/command_pallete_menu.png)
 
-\!\[feature X\]\(images/feature-x.png\)
+All these commands are triggered inside a new Terminal in VS Code.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+
+Following the JSON schema, this extension also provides completion and validation of the files inside a package.
+Example: 
+![Manifest validation (YAML)](images/manifest_validation.png)
+
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+### elastic-package command
+
+This plugin requires that `elastic-package` command is installed in your system.
+You can follow [these instructions](https://github.com/elastic/elastic-package#getting-started).
+
+### YAML extension
+In order to have YAML validation and completion it is required to install this extension:
+- [YAML (Red Hat)](https://marketplace.visualstudio.com/items?itemName=redhat.vscode-yaml)
+
+This extension adds the `yamlValidation` key under contributes so YAML schemas can be defined for specific files.
+
+### Package context
+
+Some of the commands require that the workspace in VS Code is a folder that contains the package defintions.
+For instance "Elastic Package: Service up" command/action runs successfully if the current workspace in Code is
+a folder with all the package files.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
 This extension contributes the following settings:
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+* `elastic-package-code.defaultProfile`: Default profile name to be used in `elastic-package` commands.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
