@@ -32,7 +32,6 @@ export function elasticPackageCommand(parameters: string, verbose: boolean): str
 
 export function getCurrentWorkingDirectory(): string {
 	let message: string;
-	let cwd: string;
 	if (vscode.workspace.workspaceFolders !== undefined) {
 		let path = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
