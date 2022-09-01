@@ -21,6 +21,6 @@ export async function getCurrentProfiles(): Promise<ReadonlyArray<string>> {
 }
 
 export function getDefaultProfile() {
-    const configuration = vscode.workspace.getConfiguration('epcode');
+    const configuration = vscode.workspace.getConfiguration('elastic-package-code');
     return configuration['defaultProfile'];
 }

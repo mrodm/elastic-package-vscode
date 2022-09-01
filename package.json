@@ -1,6 +1,6 @@
 {
-  "name": "epcode",
-  "displayName": "epcode",
+  "name": "elastic-package-vscode",
+  "displayName": "elastic-package-vscode",
   "description": "Elastic Package integration for VS Code",
   "version": "0.0.1",
   "engines": {
@@ -10,67 +10,67 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:epcode.build",
-    "onCommand:epcode.check",
-    "onCommand:epcode.lint",
-    "onCommand:epcode.profiles.list",
-    "onCommand:epcode.profiles.create",
-    "onCommand:epcode.profiles.delete",
-    "onCommand:epcode.stack.status",
-    "onCommand:epcode.stack.up",
-    "onCommand:epcode.stack.down",
-    "onCommand:epcode.service.up"
+    "onCommand:elasticPackage.build",
+    "onCommand:elasticPackage.check",
+    "onCommand:elasticPackage.lint",
+    "onCommand:elasticPackage.profiles.list",
+    "onCommand:elasticPackage.profiles.create",
+    "onCommand:elasticPackage.profiles.delete",
+    "onCommand:elasticPackage.stack.status",
+    "onCommand:elasticPackage.stack.up",
+    "onCommand:elasticPackage.stack.down",
+    "onCommand:elasticPackage.service.up"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "epcode.build",
+        "command": "elasticPackage.build",
         "title": "Build",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.check",
+        "command": "elasticPackage.check",
         "title": "check",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.lint",
+        "command": "elasticPackage.lint",
         "title": "lint",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.profiles.list",
+        "command": "elasticPackage.profiles.list",
         "title": "Profiles list",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.profiles.create",
+        "command": "elasticPackage.profiles.create",
         "title": "Profiles create",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.profiles.delete",
+        "command": "elasticPackage.profiles.delete",
         "title": "Profiles delete",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.stack.status",
+        "command": "elasticPackage.stack.status",
         "title": "Stack status",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.stack.up",
+        "command": "elasticPackage.stack.up",
         "title": "Stack up",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.stack.down",
+        "command": "elasticPackage.stack.down",
         "title": "Stack down",
         "category": "Elastic Package"
       },
       {
-        "command": "epcode.service.up",
+        "command": "elasticPackage.service.up",
         "title": "Service up",
         "category": "Elastic Package"
       }
@@ -78,7 +78,7 @@
     "configuration": {
       "title": "Elastic Package",
       "properties": {
-        "epcode.defaultProfile": {
+        "elasticPackage.defaultProfile": {
           "type": "string",
           "default": "default",
           "markdownDescription": "Default profile to be used in `elastic-package stack` commands"
@@ -92,14 +92,14 @@
           "!data_stream/*/_dev/test/pipeline/test-*.log-expected.json",
           "!data_stream/*/_dev/test/pipeline/test-*.json-expected.json"
         ],
-        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/event.spec.yml"
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/event.spec.json"
       },
       {
         "fileMatch": [
           "data_stream/*/_dev/test/pipeline/test-*.log-expected.json",
           "data_stream/*/_dev/test/pipeline/test-*.json-expected.json"
         ],
-        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/expected.spec.yml"
+        "url": "./resources/schemas/integration/data_stream/_dev/test/pipeline/expected.spec.json"
       }
     ],
     "yamlValidation": [

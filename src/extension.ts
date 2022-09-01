@@ -13,29 +13,29 @@ export function activate(context: vscode.ExtensionContext) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.debug('Extension "epcode" activated');
+	console.debug('Extension "elasticPackage" activated');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.lint', defaultHandler("Running lint...", "lint", true)));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.lint', defaultHandler("Running lint...", "lint", true)));
 
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.check', defaultHandler("Running check...", "check", true)));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.check', defaultHandler("Running check...", "check", true)));
 
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.build', defaultHandler("Running build...", "build", true)));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.build', defaultHandler("Running build...", "build", true)));
 
 	// Stack Management 
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.status', stackStatusHandler));
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.up', stackUpHandler));
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.stack.down', stackDownHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.stack.status', stackStatusHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.stack.up', stackUpHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.stack.down', stackDownHandler));
 
 	// Service Management
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.service.up', serviceUpHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.service.up', serviceUpHandler));
 
 	// Profiles Management
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.list', profileListHandler));
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.create', profileCreateHandler));
-	context.subscriptions.push(vscode.commands.registerCommand('epcode.profiles.delete', profileDeleteHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.profiles.list', profileListHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.profiles.create', profileCreateHandler));
+	context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.profiles.delete', profileDeleteHandler));
+
+	// Create data-stream
+	//context.subscriptions.push(vscode.commands.registerCommand('elasticPackage.create.datastream', createDataStreamHandler));
 }
 
 // this method is called when your extension is deactivated

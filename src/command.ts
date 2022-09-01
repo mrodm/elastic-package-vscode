@@ -36,13 +36,13 @@ export function getCurrentWorkingDirectory(): string {
 	if (vscode.workspace.workspaceFolders !== undefined) {
 		let path = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
-		message = `epcode: working directory: ${path}`;
+		message = `elasticPackage: working directory: ${path}`;
 
 		vscode.window.showInformationMessage(message);
 		return path;
 	}
 
-	message = "epcode: Working folder not found, open a folder an try again";
+	message = "elasticPackage: Working folder not found, open a folder an try again";
 
 	vscode.window.showErrorMessage(message);
 
